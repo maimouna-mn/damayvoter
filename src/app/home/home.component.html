@@ -1,0 +1,24 @@
+<body class=" h-screen">
+  <app-navbar></app-navbar>
+  <div class="flex justify-center items-center h-1/2 ">
+    <div class="bg-gray-200 shadow-md w-2/3 h-56 rounded px-8 pt-6 pb-8 mb-4">
+      <p class="text-gray-700 text-3xl mb-4 flex items-center justify-center mt-3">En validant votre vote</p>
+      <p class="text-gray-700 text-2xl  flex items-center justify-center ">Vous confirmez être éligible selon
+        les critères de vote en vigueur. </p>
+      <p class="text-gray-700 text-2xl  flex items-center justify-center mr-16">Vous reconnaissez que votre vote est
+        anonyme et sécurisé. </p>
+      <p class="text-gray-700 text-2xl  flex items-center justify-center mr-12"> Vous comprenez que le vote est
+        irréversible une fois soumis. </p>
+      <p class="text-gray-700 text-2xl  flex items-center justify-center mr-10"> Vous attestez de l'exactitude de vos
+        informations de ce vote. </p>
+    </div>
+  </div>
+  <div class="flex justify-center items-center h-40 mt-8">
+    <button
+      class="bg-green-500 hover:bg-green-700 text-white text-2xl font-bold py-4 px-16 rounded focus:outline-none focus:shadow-outline"
+      (click)="valider()">
+      Valider
+    </button>
+  </div>
+  <app-footer></app-footer>
+</body>

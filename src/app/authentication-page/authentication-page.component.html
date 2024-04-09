@@ -1,0 +1,115 @@
+<app-navbar [showBackArrow]="true"></app-navbar>
+<div class="w-screen pt-10">
+  <div class="flex flex-col items-center justify-center w-22">
+    <label
+      for="photo1"
+      class="w-1/2 h-32 bg-gray-200 rounded mb-3 flex flex-col items-center justify-center cursor-pointer"
+    >
+      <input
+        type="file"
+        id="photo1"
+        class="hidden"
+        required
+        (change)="onPhotoSelected($event, 'recto')"
+      />
+      <ng-container *ngIf="imageDataUrlRecto; else uploadRectoPrompt">
+        <img [src]="imageDataUrlRecto" class="large-image rounded" />
+      </ng-container>
+      <ng-template #uploadRectoPrompt>
+        <p class="text-2xl">Prendre la photo recto de votre</p>
+        <p class="text-2xl">carte d'identité</p>
+      </ng-template>
+    </label>
+
+    <label
+      for="photo2"
+      class="w-1/2 h-32 bg-gray-200 rounded mb-3 flex flex-col items-center justify-center cursor-pointer"
+    >
+      <input
+        type="file"
+        id="photo2"
+        class="hidden"
+        required
+        (change)="onPhotoSelected($event, 'verso')"
+      />
+      <ng-container *ngIf="imageDataUrlVerso; else uploadVersoPrompt">
+        <img [src]="imageDataUrlVerso" class="large-image rounded" />
+      </ng-container>
+      <ng-template #uploadVersoPrompt>
+        <p class="text-2xl">Prendre la photo verso de votre</p>
+        <p class="text-2xl">carte d'identité</p>
+      </ng-template>
+    </label>
+
+    <div
+      class="w-1/2 h-32 bg-gray-200 rounded mb-3 flex flex-col items-center justify-center cursor-pointer"
+    >
+      <img
+        [src]="selfieImageUrl"
+        *ngIf="selfieImageUrl; else uploadSelfiePrompt"
+        class="large-image rounded"
+      />
+      <input
+        type="file"
+        id="photo3"
+        class="hidden"
+        required
+        (change)="onPhotoSelected($event, 'verso')"
+      />
+      <ng-template #uploadSelfiePrompt>
+        <button
+          (click)="startCamera()"
+          class="text-2xl rounded z-30 bg-gray-200 w-1/2 h-32"
+        >
+          Prendre un selfie
+        </button>
+      </ng-template>
+    </div>
+
+    <div class="modal" *ngIf="cameraStarted">
+      <div class="modal-content">
+        <div (click)="closeModal()" class="text-red-600 h-10 w-10 text-2xl">
+          X
+        </div>
+        <video *ngIf="!imageCaptured" #videoElement autoplay></video>
+        <canvas #canvasElement style="display: none"></canvas>
+        <button
+          (click)="takeSelfie()"
+          class="bg-green-800 mr-3 hover:bg-green-700 text-white text-xl font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+
+          *ngIf="!imageCaptured"
+        >
+          Capturer
+        </button>
+
+        <div *ngIf="imageCaptured">
+          <button
+          class="bg-green-800 mr-3 hover:bg-green-700 text-white text-xl font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+          (click)="saveImage()"
+        >
+        Sauvegarder
+        </button>
+          <!-- <button (click)="retry()" class="bg-red-600">Réessayer</button> -->
+
+          <button (click)="retry()"
+          class="bg-red-600 mr-3 hover:bg-green-700 text-white text-xl font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+          (click)="saveImage()"
+        >
+        Réessayer
+        </button>
+          <img [src]="imageDataUrl" *ngIf="imageDataUrl" />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center h-56">
+      <button
+        class="bg-green-500 hover:bg-green-700 text-white text-2xl font-bold py-4 px-16 rounded focus:outline-none focus:shadow-outline"
+        (click)="valider()"
+      >
+        Valider
+      </button>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
